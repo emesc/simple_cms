@@ -11,7 +11,7 @@ class SubjectsController < ApplicationController
   end
 
   def new
-    @subject = Subject.new({ name: "Default" })
+    @subject = Subject.new({name: "Default"})
   end
 
   def create
@@ -21,7 +21,7 @@ class SubjectsController < ApplicationController
     if @subject.save
       # if save succeeds, redirect to the index action
       flash[:notice] = "Subject created successfully."
-      redirect_to(action: 'index')
+      redirect_to(action: 'show')
     else
       # if save fails, redisplay the form so the user can fix the problems
       render 'new'
