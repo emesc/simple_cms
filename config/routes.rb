@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
+
   # get 'demo/index'
   root 'demo#index'
   
   # last route that it tries
   # let's put this at the very bottom
   # not a good practice anymore to use this
-  match ":controller(/:action(/:id))", via: :get
+  match ":controller(/:action(/:id))", via: [:get, :post]
 
   # MATCH ROUTE
   # get "demo/index" is a short form to:
