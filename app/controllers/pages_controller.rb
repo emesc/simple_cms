@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
 
-  layout false
+  layout "admin"
 
   def index
     @pages = Page.sorted
@@ -13,6 +13,8 @@ class PagesController < ApplicationController
   def new
     # create a new page to be ready to show a web form
     @page = Page.new({name: "Default"})
+    @subjects = Subject.order("position ASC")
+    @page_count = Page.count + 1
   end
 
   def create
@@ -22,6 +24,8 @@ class PagesController < ApplicationController
       flash[:notice] = "Page successfully created."
       redirect_to(action: 'index')
     else
+      @subjects = Subject.order("position ASC")
+      @page_count = Page.count + 1
       render 'new'
     end
   end
@@ -29,6 +33,8 @@ class PagesController < ApplicationController
   def edit
     # find it so that it can be displayed on the form for editing
     @page = Page.find(params[:id])
+    @subjects = Subject.order("position ASC")
+    @page_count = Page.count
   end
 
   def update
@@ -37,6 +43,8 @@ class PagesController < ApplicationController
       flash[:notice] = "Page updated successfully."
       redirect_to(action: 'show', id: @page.id)
     else
+      @subjects = Subject.order("position ASC")
+      @page_count = Page.count
       render 'edit'
     end
   end

@@ -1,5 +1,6 @@
 class DemoController < ApplicationController
-  layout false  
+  
+  layout 'application'
   
   def index
     # render(template: "demo/hello")
@@ -15,5 +16,13 @@ class DemoController < ApplicationController
 
   def other_hello
     redirect_to(action: 'index')
+  end
+
+  def text_helpers
+    
+  end
+
+  def escape_output
+    
   end
 end
