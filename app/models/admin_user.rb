@@ -1,5 +1,7 @@
 class AdminUser < ApplicationRecord
 
+  has_secure_password
+
   # to configure a different table name
   # self.table_name = "admin_users"
   has_and_belongs_to_many :pages
@@ -36,16 +38,24 @@ class AdminUser < ApplicationRecord
   validate :username_is_allowed
   # validate :no_new_users_on_friday, on: :create
 
-  def username_is_allowed
-    if FORBIDDEN_USERNAMES.include?(username)
-      errors.add(:username, "has been restricted from use.")
-    end
+  scope :sorted, lambda{order("last_name ASC, first_name ASC")}
+
+  def name
+    "#{first_name} #{last_name}"
   end
 
-  # def no_new_users_on_friday
-  #   if Time.now.wday == 5
-  #     errors[:base] << "No new users on Fridays."
-  #   end
-  # end
+  private
+
+    def username_is_allowed
+      if FORBIDDEN_USERNAMES.include?(username)
+        errors.add(:username, "has been restricted from use.")
+      end
+    end
+
+    # def no_new_users_on_friday
+    #   if Time.now.wday == 5
+    #     errors[:base] << "No new users on Fridays."
+    #   end
+    # end
 
 end

@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
- 
+
   # get 'demo/index'
   root 'demo#index'
+
+  get 'admin', to: "access#index"
   
   # last route that it tries
   # let's put this at the very bottom
