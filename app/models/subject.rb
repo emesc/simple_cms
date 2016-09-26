@@ -1,6 +1,12 @@
 class Subject < ApplicationRecord
 
+  # could delete related pages automatically
+  # whenever a subject is deleted:
+  # deleting a subject would delete everything in the tree, including sections below it
+  # has_many :pages, dependent: :destroy
   has_many :pages
+
+  acts_as_list
 
   # validates_presence_of :name
   # validates_length_of :name, maximum: 255

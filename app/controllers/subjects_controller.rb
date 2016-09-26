@@ -24,7 +24,7 @@ class SubjectsController < ApplicationController
     if @subject.save
       # if save succeeds, redirect to the index action
       flash[:notice] = "Subject created successfully."
-      redirect_to(action: 'show')
+      redirect_to(action: 'index')
     else
       # if save fails, redisplay the form so the user can fix the problems
       @subject_count = Subject.count + 1

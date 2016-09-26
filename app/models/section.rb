@@ -3,6 +3,14 @@ class Section < ApplicationRecord
   belongs_to :page
   has_many :section_edits
 
+  # there can be a set of pages for a page, another set of pages for another page
+  # acts as list will always check the position based on page id
+  acts_as_list scope: :page
+
+  # ActiveRecord callback
+  # save is happening for both update and create
+  after_save :touch_page
+
   # traversing rich association
   # a section has many admin users but it has to go through section_edits
   has_many :editors, through: :section_edits, class_name: "AdminUser"
@@ -26,4 +34,12 @@ class Section < ApplicationRecord
   scope :search, lambda{|query|
     where(["name LIKE ?", "%#{query}%"])}
 
+  private
+
+    # whenever a section is updated, page is updated too
+    def touch_page
+      # touch is similar to:
+      # subject.update_attribute(:updated_at, Time.now)
+      page.touch
+    end
 end
